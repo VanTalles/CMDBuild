@@ -134,14 +134,17 @@ class createSGJuniperSwitch(Script):
         c1 = cmdb(username="",password="")
         r1 = c1.connect()
         self.log_success(f"CMDB connect: {r1}")
-
+  
+        r2 = c1.get_ProductsInfo(bname = device_new.device_type.model)       
         new_card = {
             "Code": device_new.name,
             "Hostname": device_new.name,
             "Availability":72,
             "State":121,
             "SerialNumber": device_new.serial,
-            "Notes":"TEST API from NetBOX scripts",
+            "Model": r2['data'][0]['_id'],
+            "Brand": r2['data'][0]['Brand'],
+            "Notes":"access-switch; JunOS; Juniper",
         }
 
         r4 = c1.insert_card_NetworkBox(card_data = new_card)
