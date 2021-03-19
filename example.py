@@ -4,6 +4,18 @@ cd = cmdb(username='',password='')
 
 r1 = cd.connect()
 
+
+r3a = cd.get_ProductsInfo()
+
+print (r3a)
+ret = {
+    'Model' : r3a['data'][0]['_id'],
+    'Brand' : r3a['data'][0]['Brand'],
+}
+
+print (ret)
+
+
 r3 = cd.get_classes_NetworkBox()
 print (r3)
 
@@ -16,5 +28,7 @@ new_NetBox_card = {
 
 r4 = cd.insert_card_NetworkBox(card_data = new_NetBox_card)
 print (r4)
+
+
 
 r2 = cd.close()
