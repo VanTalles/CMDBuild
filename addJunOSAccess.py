@@ -13,7 +13,7 @@ from utilities.forms import (
     NumericArrayField, SelectWithPK, SmallTextarea, SlugField, StaticSelect2, StaticSelect2Multiple, TagFilterField,
     BOOLEAN_WITH_BLANK_CHOICES,
 )
-from CMDBuildNLMK import CMDBuildNLMK as cmdb
+from CMDBuild import CMDBuildNLMK as cmdb
 
 class createSGJuniperSwitch(Script):
     class Meta:
