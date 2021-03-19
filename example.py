@@ -13,6 +13,7 @@ new_NetBox_card = {
     "Availability":72, 
 }
 
-r4 = cd.
+r4 = cd.insert_card_NetworkBox(self, card_data = new_NetBox_card):
+print (r4)
 
 r2 = cd.close()
