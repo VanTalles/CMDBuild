@@ -11,6 +11,7 @@ new_NetBox_card = {
     "Code":"TEST_ITEM_api",
     "Hostname":"TEST_ITEM_api",
     "Availability":72, 
+    "State":121,
 }
 
 r4 = cd.insert_card_NetworkBox(self, card_data = new_NetBox_card):
