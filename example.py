@@ -14,7 +14,7 @@ new_NetBox_card = {
     "State":121,
 }
 
-r4 = cd.insert_card_NetworkBox(self, card_data = new_NetBox_card):
+r4 = cd.insert_card_NetworkBox(card_data = new_NetBox_card)
 print (r4)
 
 r2 = cd.close()
