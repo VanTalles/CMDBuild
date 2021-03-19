@@ -60,3 +60,20 @@ class CMDBuildNLMK(object):
         path = "classes/NetworkBox/cards/"
         return self.request_post(path=path, data=card_data)
     
+    def get_ProductsInfo(self, bname):
+        filter = []
+        filter.append(
+            {
+                'simple':{
+                    'attribute' : 'Model',
+                    'operator' : 'equal',
+                    'value' : [bname],
+                }
+            }
+        )
+        data = {"attribute":filter[0]} # for example to use the one filter' attribute
+        path = "classes/HWCatalogue/cards?filter={0}".format(data)
+        ret = self.request_get(path=path)
+
+        return ret
+    
