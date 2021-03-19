@@ -55,3 +55,8 @@ class CMDBuildNLMK(object):
     def get_classes_NetworkBox(self):
         path = "classes/NetworkBox/"
         return self.request_get(path)
+    
+    def insert_card_NetworkBox(self, card_data):
+        path = "classes/NetworkBox/cards/"
+        return self.request_post(path=path, data=card_data)
+    
