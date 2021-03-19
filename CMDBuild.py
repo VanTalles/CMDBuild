@@ -21,7 +21,7 @@ class CMDBuildNLMK(object):
         }
     
     def api(self, path):
-        ret = "{host}/services/rest/v3/{path}/".format(host=self.service.strip('/'), path=path.strip())
+        ret = "{host}/services/rest/v3/{path}".format(host=self.service.strip('/'), path=path.strip())
         return ret
 
     def request_get(self,path, data = None):
@@ -39,19 +39,19 @@ class CMDBuildNLMK(object):
     
     def connect(self):
         data = json.dumps(dict(username=self.username,password=self.password))
-        path = "/services/rest/v3/sessions/?scope=service&returnId=true"
-        api = self.service+path
+        path = "sessions/?scope=service&returnId=true"
+        api = self.api(path)
         ret = requests.post(api, data=data, headers=self.headers, verify = False)
         self.session_id = ret.json()["data"]["_id"]
         return self.session_id
     
     def close(self):
-        path = '/services/rest/v2/sessions/{0}'.format(self.session_id)
-        api = self.service+path
+        path = 'sessions/{0}'.format(self.session_id)
+        api = self.api(path)
         ret = requests.delete(api, headers = self.headers, verify = False)
         self.session_id = None
         return (ret.json())
     
     def get_classes_NetworkBox(self):
-        path = "classes/NetworkBox"
+        path = "classes/NetworkBox/"
         return self.request_get(path)
