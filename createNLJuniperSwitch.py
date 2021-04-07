@@ -36,13 +36,13 @@ class createNLJuniperSwitch(Script):
     )
 
     inventory = StringVar(
-        description = 'Inventory number',
+        description = 'Inventory number OT USE',
         label = 'Inventory number',
         required = False
     )
 
     sticker = StringVar(
-        description = 'Stick number',
+        description = 'Stick number NOT USE',
         label = 'Stick number',
         required = False
     )
@@ -111,12 +111,12 @@ class createNLJuniperSwitch(Script):
     )
 
     monitoring = BooleanVar(
-        description = 'Set to monitoring',
+        description = 'Set to monitoring NOT USE',
         default = 'True'
     )
 
     backup = BooleanVar(
-        description = 'Set to backup',
+        description = 'Set to backup NOT USE',
         default = 'True'
 
     )
@@ -124,7 +124,7 @@ class createNLJuniperSwitch(Script):
     services = MultiChoiceVar(label = 'Services', description = 'multiselect allow', choices=SERVICESLIST)
 
 
-    def run(self,data,commit):
+   def run(self,data,commit):
 
         services_list = [
             {'id_s':'s2','port':22,'name':'SSHv2','protocol':'tcp'},
@@ -147,8 +147,9 @@ class createNLJuniperSwitch(Script):
         )
         device_new.save()
 
-        device_new.custom_field_data['fMonitoring'] = data['monitoring']
-        device_new.custom_field_data['fBackup'] = data['backup']
+        #device_new.custom_field_data['fMonitoring'] = data['monitoring']
+        #device_new.custom_field_data['fBackup'] = data['backup']
+        device_new.custom_field_data['device_location'] = data['location']
         device_new.save()
 
         output = []
@@ -187,25 +188,27 @@ class createNLJuniperSwitch(Script):
         self.log_success(f"Created new Juniper device: {device_new}")
 
 
-        c1 = cmdb(username="",password="")              #TEST!!!!
-        r1 = c1.connect()
-        self.log_success(f"CMDB connect: {r1}")
-
-        new_card = {
-            "Code": device_new.name,
-            "Hostname": device_new.name,
-            "Availability":72,
-            "State":121,
-            "SerialNumber": device_new.serial,
-            "Notes":"TEST API from NetBOX scripts",
-        }
         try:
+            c1 = cmdb(username="",password="")              #TEST!!!!
+            r1 = c1.connect()
+            self.log_success(f"CMDB connect: {r1}")
+
+            new_card = {
+                "Code": device_new.name,
+                "Hostname": device_new.name,
+                "Availability":72,
+                "State":121,
+                "SerialNumber": device_new.serial,
+                "Notes":"TEST API from NetBOX scripts",
+            }
+        
             r4 = c1.insert_card_NetworkBox(card_data = new_card)
             self.log_success(f"CMDB connect: {r4}")
+            r2 = c1.close()
         except:
             self.log_success(f"CMDB item not create")    #TEST!!!
 
-        r2 = c1.close()
+        
 
 
 
